@@ -711,6 +711,171 @@
                 font-size: 0.7rem;
             }
         }
+
+        /* ================= Tech / AI Visual Enhancements ================= */
+
+        .hero, #about, #skills, #projects, #roadmap {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        /* Animated circuit-grid texture, site-wide */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.07) 1px, transparent 1px);
+            background-size: 48px 48px;
+            animation: gridPan 50s linear infinite;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        @keyframes gridPan {
+            from { background-position: 0 0, 0 0; }
+            to { background-position: 480px 480px, 480px 480px; }
+        }
+
+        /* Aurora gradient blobs used as section accents */
+        .aurora-blob {
+            position: absolute;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: auroraDrift 20s ease-in-out infinite alternate;
+        }
+
+        .aurora-blob.blob-a { width: 380px; height: 380px; background: var(--accent); top: -120px; left: -100px; }
+        .aurora-blob.blob-b { width: 340px; height: 340px; background: var(--success); top: 20%; right: -100px; animation-delay: -7s; }
+        .aurora-blob.blob-c { width: 320px; height: 320px; background: var(--warning); bottom: -100px; left: 15%; opacity: 0.18; animation-delay: -14s; }
+
+        @keyframes auroraDrift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(35px, -25px) scale(1.12); }
+            100% { transform: translate(-25px, 20px) scale(0.94); }
+        }
+
+        /* Neural network canvas - hero background (the "brain" behind the LLM/agentic work) */
+        #neuralCanvas {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Hero terminal - typed live-ops snippet */
+        .hero-terminal {
+            position: relative;
+            z-index: 1;
+            max-width: 560px;
+            margin: 2.5rem auto 0;
+            background: rgba(10, 14, 39, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            text-align: left;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(6px);
+        }
+
+        .hero-terminal-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.65rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-terminal-dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; }
+        .hero-terminal-dot.red { background: #ef4444; }
+        .hero-terminal-dot.yellow { background: #f59e0b; }
+        .hero-terminal-dot.green { background: #10b981; }
+
+        .hero-terminal-title {
+            margin-left: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+
+        .hero-terminal-body {
+            padding: 1.25rem 1.5rem;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.82rem;
+            min-height: 150px;
+            color: #a7f3d0;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .hero-terminal-body .prompt { color: var(--accent-light); }
+
+        .hero-terminal-cursor {
+            display: inline-block;
+            width: 0.5em;
+            background: #a7f3d0;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Scroll-triggered reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Card hover shine sweep */
+        .skill-card, .project-card { position: relative; }
+        .skill-card { overflow: hidden; }
+
+        .skill-card::after, .project-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.8s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .skill-card:hover::after, .project-card:hover::after { left: 150%; }
+
+        /* Featured skill card - Generative AI & LLM */
+        .skill-card-featured {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(16, 185, 129, 0.08));
+            animation: featurePulse 3.5s ease-in-out infinite;
+        }
+
+        @keyframes featurePulse {
+            0%, 100% { box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.1); }
+            50% { box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.55), 0 0 40px rgba(59, 130, 246, 0.3); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -731,6 +896,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <canvas id="neuralCanvas" aria-hidden="true"></canvas>
         <div class="hero-content">
             <h1>Rajiv <span class="highlight">Kumar</span></h1>
             <p class="hero-role">Site Reliability Engineer · DevOps Architect · AI Solution Architect</p>
@@ -739,11 +905,21 @@
                 <a href="#journey" class="btn btn-primary">See My Journey</a>
                 <a href="#projects" class="btn btn-secondary">View My Work</a>
             </div>
+            <div class="hero-terminal">
+                <div class="hero-terminal-bar">
+                    <span class="hero-terminal-dot red"></span>
+                    <span class="hero-terminal-dot yellow"></span>
+                    <span class="hero-terminal-dot green"></span>
+                    <span class="hero-terminal-title">rajiv@aiops-control-plane</span>
+                </div>
+                <div class="hero-terminal-body" id="heroTerminalBody"></div>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about">
+        <div class="aurora-blob blob-a" aria-hidden="true"></div>
         <h2>About Me</h2>
         <div style="max-width: 800px; margin: 0 auto; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
             <p>I'm a <strong style="color: var(--text);">Site Reliability Engineer, DevOps Architect, and AI Solution Architect</strong> with 18+ years of enterprise-scale experience architecting AI-ready infrastructure, intelligent automation, and highly reliable platforms for telecom-grade and SaaS environments. Based in Pune, India — open to remote/hybrid opportunities.</p>
@@ -757,7 +933,7 @@
         <h2>My Journey: SysAdmin → DevOps → SRE → AI Ops</h2>
         <p class="section-subtitle">18+ years across six roles and five companies — each stage building on the last instead of replacing it.</p>
         <div class="timeline">
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-marker">01</div>
                 <div class="timeline-content">
                     <span class="timeline-era">Foundation · 2006 – 2016</span>
@@ -786,7 +962,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-marker">02</div>
                 <div class="timeline-content">
                     <span class="timeline-era">Acceleration · 2016 – 2019</span>
@@ -814,7 +990,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-marker">03</div>
                 <div class="timeline-content">
                     <span class="timeline-era">Reliability · 2019 – 2024</span>
@@ -842,7 +1018,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item">
+            <div class="timeline-item reveal">
                 <div class="timeline-marker">04</div>
                 <div class="timeline-content">
                     <span class="timeline-era">Autonomy · Nov 2024 – Present</span>
@@ -874,9 +1050,10 @@
 
     <!-- Skills Section -->
     <section id="skills">
+        <div class="aurora-blob blob-b" aria-hidden="true"></div>
         <h2>Technical Skills</h2>
         <div class="skills-grid">
-            <div class="skill-card">
+            <div class="skill-card reveal">
                 <h3>🛡️ Site Reliability Engineering</h3>
                 <ul>
                     <li>SLO/SLA & Error Budget Management</li>
@@ -886,7 +1063,7 @@
                     <li>Chaos Engineering Fundamentals</li>
                 </ul>
             </div>
-            <div class="skill-card">
+            <div class="skill-card reveal">
                 <h3>☁️ Cloud & Infrastructure as Code</h3>
                 <ul>
                     <li>AWS (EC2, EKS, SageMaker, Bedrock)</li>
@@ -896,7 +1073,7 @@
                     <li>Docker & Helm</li>
                 </ul>
             </div>
-            <div class="skill-card">
+            <div class="skill-card reveal skill-card-featured">
                 <h3>🤖 Generative AI & LLM Architecture</h3>
                 <ul>
                     <li>Foundation Models & LLM Deployment</li>
@@ -906,7 +1083,7 @@
                     <li>Prompt Engineering</li>
                 </ul>
             </div>
-            <div class="skill-card">
+            <div class="skill-card reveal">
                 <h3>🔄 MLOps & AI Pipelines</h3>
                 <ul>
                     <li>MLflow (Registry & Tracking)</li>
@@ -916,7 +1093,7 @@
                     <li>GPU Cost Optimization (FinOps)</li>
                 </ul>
             </div>
-            <div class="skill-card">
+            <div class="skill-card reveal">
                 <h3>🔐 DevSecOps & Compliance</h3>
                 <ul>
                     <li>Zero Trust Architecture</li>
@@ -926,7 +1103,7 @@
                     <li>Responsible AI Governance</li>
                 </ul>
             </div>
-            <div class="skill-card">
+            <div class="skill-card reveal">
                 <h3>👥 Leadership & Delivery</h3>
                 <ul>
                     <li>100+ FTE Teams Directed</li>
@@ -941,10 +1118,11 @@
 
     <!-- Projects Section -->
     <section id="projects">
+        <div class="aurora-blob blob-c" aria-hidden="true"></div>
         <h2>Featured Projects</h2>
         <div class="projects-grid">
             <!-- Project 1: Enterprise AI Automation & SRE Transformation -->
-            <div class="project-card">
+            <div class="project-card reveal">
                 <div class="project-header">
                     <h3>Enterprise AI Automation & SRE Transformation</h3>
                     <p>Event-driven, AI-augmented self-healing infrastructure for one of the biggest ISPs in Africa (280M+ subscribers)</p>
@@ -966,7 +1144,7 @@
             </div>
 
             <!-- Project 2: MLOps-Ready Cloud Infrastructure & SRE Platform -->
-            <div class="project-card">
+            <div class="project-card reveal">
                 <div class="project-header">
                     <h3>MLOps-Ready Cloud Infrastructure & SRE Platform</h3>
                     <p>Cloud-native transformation of a 1,000+ server estate for a US-HQ SaaS real estate platform</p>
@@ -988,7 +1166,7 @@
             </div>
 
             <!-- Project 3: Zero Trust DevSecOps & Incident Automation -->
-            <div class="project-card">
+            <div class="project-card reveal">
                 <div class="project-header">
                     <h3>Zero Trust DevSecOps & Incident Automation</h3>
                     <p>Enterprise-wide Zero Trust security architecture with automated compliance and incident response</p>
@@ -1010,7 +1188,7 @@
             </div>
 
             <!-- Project 4: Intelligent Event Correlation & Multi-Account Automation -->
-            <div class="project-card">
+            <div class="project-card reveal">
                 <div class="project-header">
                     <h3>Intelligent Event Correlation & Automation</h3>
                     <p>Event intelligence and self-healing automation across 7 simultaneous global enterprise accounts</p>
@@ -1032,7 +1210,7 @@
             </div>
 
             <!-- Project 5: Agentic AI & Multi-Agent Orchestration (R&D) -->
-            <div class="project-card">
+            <div class="project-card reveal">
                 <div class="project-header">
                     <h3>Agentic AI & Multi-Agent Orchestration</h3>
                     <p>Self-directed exploration of multi-agent coordination patterns for autonomous infrastructure remediation</p>
@@ -1054,7 +1232,7 @@
             </div>
 
             <!-- Project 6: Autonomous AIOps & Self-Healing Infrastructure (R&D) -->
-            <div class="project-card">
+            <div class="project-card reveal">
                 <div class="project-header">
                     <h3>Autonomous AIOps & Self-Healing Infrastructure</h3>
                     <p>Prototype AIOps agent applying LLM-driven root-cause analysis to Kubernetes workloads</p>
@@ -1078,34 +1256,34 @@
 
         <!-- Achievements -->
         <div class="achievements">
-            <div class="achievement">
+            <div class="achievement reveal">
                 <div class="achievement-icon">📊</div>
-                <h3>18+ Years</h3>
+                <h3><span class="count-up" data-target="18" data-suffix="+ Years"></span></h3>
                 <p>Enterprise IT, SRE & AI/ML Experience</p>
             </div>
-            <div class="achievement">
+            <div class="achievement reveal">
                 <div class="achievement-icon">🖥️</div>
-                <h3>1,500+</h3>
+                <h3><span class="count-up" data-target="1500" data-suffix="+"></span></h3>
                 <p>Servers Automated & Managed</p>
             </div>
-            <div class="achievement">
+            <div class="achievement reveal">
                 <div class="achievement-icon">👥</div>
-                <h3>100+</h3>
+                <h3><span class="count-up" data-target="100" data-suffix="+"></span></h3>
                 <p>FTE Teams Directed</p>
             </div>
-            <div class="achievement">
+            <div class="achievement reveal">
                 <div class="achievement-icon">✅</div>
-                <h3>99.9%</h3>
+                <h3><span class="count-up" data-target="99.9" data-decimals="1" data-suffix="%"></span></h3>
                 <p>Peak Uptime — 3 Years, Zero Major Incidents</p>
             </div>
-            <div class="achievement">
+            <div class="achievement reveal">
                 <div class="achievement-icon">💰</div>
-                <h3>$10M+</h3>
+                <h3><span class="count-up" data-prefix="$" data-target="10" data-suffix="M+"></span></h3>
                 <p>Revenue from AI Automation & GenAI Roadmaps</p>
             </div>
-            <div class="achievement">
+            <div class="achievement reveal">
                 <div class="achievement-icon">📜</div>
-                <h3>250+</h3>
+                <h3><span class="count-up" data-target="250" data-suffix="+"></span></h3>
                 <p>Ansible Playbooks Authored</p>
             </div>
         </div>
@@ -1113,10 +1291,11 @@
 
     <!-- Organizational Transformation Roadmap -->
     <section id="roadmap">
+        <div class="aurora-blob blob-a" aria-hidden="true"></div>
         <h2>Organizational Transformation Roadmap</h2>
         <p class="section-subtitle">A practical, phase-by-phase playbook — distilled from 18+ years of living the SysAdmin → DevOps → SRE → AI Ops journey — for taking any operations team through it deliberately.</p>
         <div class="roadmap-phases">
-            <div class="roadmap-phase">
+            <div class="roadmap-phase reveal">
                 <div class="phase-number"><span class="num">0</span><span class="label">Assess</span></div>
                 <div class="roadmap-body">
                     <h3>Assess & Baseline</h3>
@@ -1129,7 +1308,7 @@
                 </div>
             </div>
 
-            <div class="roadmap-phase">
+            <div class="roadmap-phase reveal">
                 <div class="phase-number"><span class="num">1</span><span class="label">Automate</span></div>
                 <div class="roadmap-body">
                     <h3>Automate the Foundation (DevOps)</h3>
@@ -1142,7 +1321,7 @@
                 </div>
             </div>
 
-            <div class="roadmap-phase">
+            <div class="roadmap-phase reveal">
                 <div class="phase-number"><span class="num">2</span><span class="label">Engineer</span></div>
                 <div class="roadmap-body">
                     <h3>Engineer Reliability (SRE)</h3>
@@ -1155,7 +1334,7 @@
                 </div>
             </div>
 
-            <div class="roadmap-phase">
+            <div class="roadmap-phase reveal">
                 <div class="phase-number"><span class="num">3</span><span class="label">Introduce</span></div>
                 <div class="roadmap-body">
                     <h3>Introduce Agentic AI Ops</h3>
@@ -1168,7 +1347,7 @@
                 </div>
             </div>
 
-            <div class="roadmap-phase">
+            <div class="roadmap-phase reveal">
                 <div class="phase-number"><span class="num">4</span><span class="label">Govern</span></div>
                 <div class="roadmap-body">
                     <h3>Scale with Governance & Trust</h3>
@@ -1181,7 +1360,7 @@
                 </div>
             </div>
 
-            <div class="roadmap-phase">
+            <div class="roadmap-phase reveal">
                 <div class="phase-number"><span class="num">5</span><span class="label">Transform</span></div>
                 <div class="roadmap-body">
                     <h3>Organization-Wide Transformation</h3>
@@ -1218,5 +1397,177 @@
     <footer>
         <p>&copy; 2026 Rajiv Kumar — Site Reliability Engineer · DevOps Architect · AI Solution Architect</p>
     </footer>
+
+    <script>
+        (function () {
+            var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            /* Scroll-triggered reveal */
+            var revealEls = document.querySelectorAll('.reveal');
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                revealEls.forEach(function (el) { el.classList.add('visible'); });
+            } else {
+                revealEls.forEach(function (el, i) {
+                    el.style.transitionDelay = (Math.min(i % 6, 5) * 0.08) + 's';
+                });
+                var revealObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+                revealEls.forEach(function (el) { revealObserver.observe(el); });
+            }
+
+            /* Animated count-up stats */
+            function formatCount(value, decimals, prefix, suffix) {
+                var text = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toLocaleString('en-US');
+                return prefix + text + suffix;
+            }
+            function animateCounter(el) {
+                var target = parseFloat(el.getAttribute('data-target'));
+                var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+                var prefix = el.getAttribute('data-prefix') || '';
+                var suffix = el.getAttribute('data-suffix') || '';
+                if (reduceMotion) { el.textContent = formatCount(target, decimals, prefix, suffix); return; }
+                var duration = 1600, start = null;
+                function step(ts) {
+                    if (start === null) start = ts;
+                    var progress = Math.min((ts - start) / duration, 1);
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = formatCount(target * eased, decimals, prefix, suffix);
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+            var counters = document.querySelectorAll('.count-up');
+            if ('IntersectionObserver' in window) {
+                var countObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            animateCounter(entry.target);
+                            countObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.4 });
+                counters.forEach(function (el) { countObserver.observe(el); });
+            } else {
+                counters.forEach(animateCounter);
+            }
+
+            /* Hero terminal typing effect */
+            var termBody = document.getElementById('heroTerminalBody');
+            if (termBody) {
+                var lines = [
+                    { type: 'cmd', text: 'kubectl get pods -n production --watch' },
+                    { type: 'out', text: 'STATUS  All 1,500+ nodes healthy' },
+                    { type: 'cmd', text: 'ansible-playbook self-heal.yml' },
+                    { type: 'out', text: 'Auto-remediated 3 incidents in 4.2s' },
+                    { type: 'cmd', text: 'python agentic_orchestrator.py --mode=autonomous' },
+                    { type: 'out', text: 'AIOps agent monitoring 24/7 | MTTR -45%' }
+                ];
+                if (reduceMotion) {
+                    termBody.innerHTML = lines.map(function (l) {
+                        return (l.type === 'cmd' ? '<span class="prompt">$ ' + l.text + '</span>' : l.text);
+                    }).join('<br>');
+                } else {
+                    (function typeLoop() {
+                        var li = 0, ci = 0, completed = '';
+                        function tick() {
+                            if (li >= lines.length) {
+                                setTimeout(function () { termBody.innerHTML = ''; typeLoop(); }, 2600);
+                                return;
+                            }
+                            var line = lines[li];
+                            var prefix = line.type === 'cmd' ? '$ ' : '';
+                            var full = prefix + line.text;
+                            ci++;
+                            var cls = line.type === 'cmd' ? 'prompt' : '';
+                            termBody.innerHTML = completed + '<span class="' + cls + '">' + full.slice(0, ci) + '</span><span class="hero-terminal-cursor">&nbsp;</span>';
+                            if (ci < full.length) {
+                                setTimeout(tick, line.type === 'cmd' ? 32 : 10);
+                            } else {
+                                completed += '<span class="' + cls + '">' + full + '</span><br>';
+                                li++; ci = 0;
+                                setTimeout(tick, line.type === 'cmd' ? 450 : 750);
+                            }
+                        }
+                        tick();
+                    })();
+                }
+            }
+
+            /* Neural network canvas - hero background, represents the LLM/agentic "brain" */
+            var canvas = document.getElementById('neuralCanvas');
+            if (canvas && !reduceMotion) {
+                var ctx = canvas.getContext('2d');
+                var hero = canvas.parentElement;
+                var nodes = [], W = 0, H = 0;
+                var DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+                function resize() {
+                    W = hero.clientWidth; H = hero.clientHeight;
+                    canvas.width = W * DPR; canvas.height = H * DPR;
+                    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+                    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+                }
+                function initNodes() {
+                    var count = Math.max(24, Math.min(60, Math.floor((W * H) / 22000)));
+                    nodes = [];
+                    for (var i = 0; i < count; i++) {
+                        nodes.push({
+                            x: Math.random() * W,
+                            y: Math.random() * H,
+                            vx: (Math.random() - 0.5) * 0.25,
+                            vy: (Math.random() - 0.5) * 0.25,
+                            r: 1.4 + Math.random() * 1.8
+                        });
+                    }
+                }
+                resize();
+                initNodes();
+                window.addEventListener('resize', function () { resize(); initNodes(); });
+
+                var pulse = 0;
+                function draw() {
+                    ctx.clearRect(0, 0, W, H);
+                    var maxDist = Math.min(170, W / 6);
+                    for (var i = 0; i < nodes.length; i++) {
+                        var a = nodes[i];
+                        a.x += a.vx; a.y += a.vy;
+                        if (a.x < 0 || a.x > W) a.vx *= -1;
+                        if (a.y < 0 || a.y > H) a.vy *= -1;
+                        for (var j = i + 1; j < nodes.length; j++) {
+                            var b = nodes[j];
+                            var dx = a.x - b.x, dy = a.y - b.y;
+                            var dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < maxDist) {
+                                var alpha = (1 - dist / maxDist) * 0.35;
+                                ctx.strokeStyle = 'rgba(96,165,250,' + alpha.toFixed(3) + ')';
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(a.x, a.y);
+                                ctx.lineTo(b.x, b.y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    for (var k = 0; k < nodes.length; k++) {
+                        var n = nodes[k];
+                        var glow = 0.6 + 0.4 * Math.sin(pulse * 0.05 + k);
+                        ctx.beginPath();
+                        ctx.fillStyle = 'rgba(167,243,208,' + (0.5 * glow).toFixed(3) + ')';
+                        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    pulse++;
+                    requestAnimationFrame(draw);
+                }
+                draw();
+            }
+        })();
+    </script>
 </body>
 </html>
