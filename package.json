@@ -1,0 +1,19 @@
+{
+  "name": "ai-ml-devops-portfolio",
+  "version": "1.0.0",
+  "description": "Professional portfolio showcasing AI/ML and DevOps projects",
+  "scripts": {
+    "dev": "npx http-server",
+    "build": "echo 'Static site - no build needed'",
+    "start": "npx http-server"
+  },
+  "keywords": [
+    "portfolio",
+    "ai",
+    "ml",
+    "devops",
+    "freelance"
+  ],
+  "author": "AI/ML Engineer",
+  "license": "MIT"
+}
