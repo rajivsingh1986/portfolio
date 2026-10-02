@@ -2,5 +2,5 @@
   "buildCommand": "",
   "devCommand": "npx http-server",
   "outputDirectory": ".",
-  "framework": "html"
+  "framework": null
 }

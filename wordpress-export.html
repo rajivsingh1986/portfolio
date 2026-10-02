@@ -1,0 +1,1221 @@
+<!--
+  WordPress.com Custom HTML block export.
+  Paste this ENTIRE file's contents into a single Custom HTML block
+  on a new WordPress Page (not a Post). Do not add <html>/<head>/<body>
+  tags -- WordPress already provides those via your theme.
+  If the <style> block gets stripped on Preview/Publish (a KSES content
+  filter some free-tier accounts apply), see WORDPRESS_GUIDE.md for the
+  inline-style fallback and other options.
+-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --text: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #0a0e27 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent),
+                        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content .highlight {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            border-color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Section */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, var(--secondary), rgba(30, 41, 59, 0.5));
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .skill-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-card li:before {
+            content: "▸";
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, var(--secondary), rgba(30, 41, 59, 0.5));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent);
+        }
+
+        .project-body {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        .project-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .project-features li:before {
+            content: "✓";
+            color: var(--success);
+            margin-right: 0.75rem;
+            font-weight: bold;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .project-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-links a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Achievements */
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .achievement {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .achievement:hover {
+            border-color: var(--accent);
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement h3 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Hero role line */
+        .hero-role {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* Section subtitle */
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 750px;
+            margin: -2rem auto 3rem;
+            font-size: 1.05rem;
+        }
+
+        /* Project employer label (replaces dead placeholder links) */
+        .project-employer {
+            display: block;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-top: 1px dashed var(--border);
+        }
+
+        /* Career Journey Timeline */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-left: 2rem;
+        }
+
+        .timeline:before {
+            content: "";
+            position: absolute;
+            left: 2rem;
+            top: 0.5rem;
+            bottom: 0.5rem;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), var(--success));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 0 0 3rem 3rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.85rem;
+            color: var(--accent-light);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, var(--secondary), rgba(30, 41, 59, 0.5));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .timeline-era {
+            display: inline-block;
+            color: var(--success);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-role-focus {
+            color: var(--accent-light);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .timeline-columns h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-columns ul {
+            list-style: none;
+        }
+
+        .timeline-columns li {
+            color: var(--text-secondary);
+            padding: 0.25rem 0;
+            font-size: 0.95rem;
+        }
+
+        .timeline-columns li:before {
+            content: "▸";
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        .mindset-quote {
+            margin-top: 1.25rem;
+            padding: 0.75rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 3px solid var(--accent);
+            border-radius: 0.25rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* Organizational Transformation Roadmap */
+        .roadmap-phases {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .roadmap-phase {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1.5rem;
+            background: linear-gradient(135deg, var(--secondary), rgba(30, 41, 59, 0.5));
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            transition: all 0.3s;
+        }
+
+        .roadmap-phase:hover {
+            border-color: var(--success);
+            transform: translateY(-3px);
+        }
+
+        .phase-number {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .phase-number .num {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--success);
+        }
+
+        .phase-number .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+        }
+
+        .roadmap-body h3 {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .roadmap-body p.goal {
+            color: var(--accent-light);
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .roadmap-body ul {
+            list-style: none;
+        }
+
+        .roadmap-body li {
+            color: var(--text-secondary);
+            padding: 0.3rem 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .roadmap-body li:before {
+            content: "✓";
+            color: var(--success);
+            margin-right: 0.6rem;
+            font-weight: bold;
+        }
+
+        .podcast-credit {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+        }
+
+        .podcast-credit p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .podcast-credit a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .podcast-credit a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-links a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            section h2 {
+                font-size: 1.75rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .projects-grid, .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap-phase {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-item {
+                padding-left: 2rem;
+            }
+
+            .timeline-marker {
+                left: -1rem;
+                width: 2rem;
+                height: 2rem;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">RAJIV KUMAR</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#journey">Journey</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Rajiv <span class="highlight">Kumar</span></h1>
+            <p class="hero-role">Site Reliability Engineer · DevOps Architect · AI Solution Architect</p>
+            <p>18+ years turning enterprise infrastructure into self-healing, AI-augmented platforms — from racking servers to architecting agentic automation for 1,500+ production systems.</p>
+            <div class="cta-buttons">
+                <a href="#journey" class="btn btn-primary">See My Journey</a>
+                <a href="#projects" class="btn btn-secondary">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div style="max-width: 800px; margin: 0 auto; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8;">
+            <p>I'm a <strong style="color: var(--text);">Site Reliability Engineer, DevOps Architect, and AI Solution Architect</strong> with 18+ years of enterprise-scale experience architecting AI-ready infrastructure, intelligent automation, and highly reliable platforms for telecom-grade and SaaS environments. Based in Pune, India — open to remote/hybrid opportunities.</p>
+            <p style="margin-top: 1.5rem;">I currently lead AI automation strategy and SRE practice for <strong style="color: var(--text);">one of the biggest ISPs in Africa (280M+ subscribers)</strong>, reducing manual operations by 60%, automating 500+ mission-critical servers, and sustaining 99.5% SLA compliance through event-driven, AI-augmented self-healing infrastructure.</p>
+            <p style="margin-top: 1.5rem;">My career has followed the same arc enterprise operations itself has taken: starting as a <strong style="color: var(--text);">Systems Administrator</strong> keeping servers alive, growing through <strong style="color: var(--text);">DevOps</strong> and <strong style="color: var(--text);">Site Reliability Engineering</strong>, and now operating as an <strong style="color: var(--text);">AI Ops / Solution Architect</strong> designing autonomous, agentic systems. I'm AWS Certified Solutions Architect, a Red Hat Certified Engineer (RHCE), and an ITIL v4 practitioner.</p>
+        </div>
+    </section>
+
+    <!-- Career Journey Section -->
+    <section id="journey">
+        <h2>My Journey: SysAdmin → DevOps → SRE → AI Ops</h2>
+        <p class="section-subtitle">18+ years across six roles and five companies — each stage building on the last instead of replacing it.</p>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker">01</div>
+                <div class="timeline-content">
+                    <span class="timeline-era">Foundation · 2006 – 2016</span>
+                    <h3>Technical Support → Network Engineer → Systems Administrator</h3>
+                    <p class="timeline-role-focus">"If it's broken, fix it fast."</p>
+                    <div class="timeline-columns">
+                        <div>
+                            <h4>Roles & Highlights</h4>
+                            <ul>
+                                <li>vCustomer — Technical Support Engineer (500+ tickets, 95%+ CSAT)</li>
+                                <li>Fiserv — Senior Network Engineer (99.7% uptime SLA)</li>
+                                <li>MMF Systems — Manager, Systems Administration (first leadership role, 20+ engineers)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Core Tools</h4>
+                            <ul>
+                                <li>RHEL, CentOS, Ubuntu, Windows Server</li>
+                                <li>Active Directory, DNS, DHCP, Exchange</li>
+                                <li>Shell & PowerShell scripting</li>
+                                <li>AWS migration (early cloud exposure)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mindset-quote">Mindset: <strong>Reactive</strong> — success measured by uptime and ticket resolution.</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">02</div>
+                <div class="timeline-content">
+                    <span class="timeline-era">Acceleration · 2016 – 2019</span>
+                    <h3>Delivery Operations Manager — IBM</h3>
+                    <p class="timeline-role-focus">"Automate the repeatable, correlate the noise."</p>
+                    <div class="timeline-columns">
+                        <div>
+                            <h4>Focus & Responsibilities</h4>
+                            <ul>
+                                <li>On-call incident management for 100+ FTE across 7 global accounts</li>
+                                <li>Pioneered automation with Chef, Puppet & Ansible</li>
+                                <li>Built event intelligence stack (Netcool, BigFix, Tivoli TADDM)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Core Tools</h4>
+                            <ul>
+                                <li>Ansible, Chef, Puppet, Python</li>
+                                <li>Netcool, BigFix, SolarWinds</li>
+                                <li>ITIL v4 incident/change/problem processes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mindset-quote">Mindset: <strong>Proactive</strong> — remove humans from repeatable work, cut MTTR 35%.</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">03</div>
+                <div class="timeline-content">
+                    <span class="timeline-era">Reliability · 2019 – 2024</span>
+                    <h3>Director of Information Technology — Entrata</h3>
+                    <p class="timeline-role-focus">"If you can't measure it, you can't improve it."</p>
+                    <div class="timeline-columns">
+                        <div>
+                            <h4>Focus & Responsibilities</h4>
+                            <ul>
+                                <li>Led 1,000+ server AWS transformation — 40% cost cut, 99.9% uptime</li>
+                                <li>Built & led a 50+ person SRE/DevSecOps/InfoSec team</li>
+                                <li>Zero Trust architecture — 70% security risk reduction</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Core Tools</h4>
+                            <ul>
+                                <li>Terraform, Ansible, Kubernetes, Kubeflow</li>
+                                <li>CloudWatch, ELK Stack, Datadog</li>
+                                <li>SOC2, PCI DSS, GDPR, CCPA compliance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mindset-quote">Mindset: <strong>Data-driven</strong> — zero major incidents over 3 continuous years.</div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">04</div>
+                <div class="timeline-content">
+                    <span class="timeline-era">Autonomy · Nov 2024 – Present</span>
+                    <h3>Lead Solution Architect Consultant — Tech Mahindra</h3>
+                    <p class="timeline-role-focus">"Build systems that fix themselves — trust, but verify."</p>
+                    <div class="timeline-columns">
+                        <div>
+                            <h4>Focus & Responsibilities</h4>
+                            <ul>
+                                <li>AI automation & SRE for one of the biggest ISPs in Africa (280M+ subscribers)</li>
+                                <li>250+ Ansible playbooks across 500+ mission-critical servers</li>
+                                <li>Founded a 30+ engineer AI Automation Center of Excellence</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Core Tools</h4>
+                            <ul>
+                                <li>AWS Bedrock & SageMaker, Azure OpenAI Service</li>
+                                <li>MLflow, Kubeflow, agentic orchestration patterns</li>
+                                <li>Event-driven self-healing automation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mindset-quote">Mindset: <strong>Supervisory</strong> — design autonomous agents, govern with guardrails, intervene by exception.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>🛡️ Site Reliability Engineering</h3>
+                <ul>
+                    <li>SLO/SLA & Error Budget Management</li>
+                    <li>MTTR/MTTF Optimization</li>
+                    <li>Incident Command & Blameless RCA</li>
+                    <li>Observability (Prometheus, Grafana, ELK)</li>
+                    <li>Chaos Engineering Fundamentals</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>☁️ Cloud & Infrastructure as Code</h3>
+                <ul>
+                    <li>AWS (EC2, EKS, SageMaker, Bedrock)</li>
+                    <li>Azure (AKS, OpenAI Service)</li>
+                    <li>Terraform & Ansible (Enterprise/RHAP)</li>
+                    <li>Kubernetes & Kubeflow</li>
+                    <li>Docker & Helm</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>🤖 Generative AI & LLM Architecture</h3>
+                <ul>
+                    <li>Foundation Models & LLM Deployment</li>
+                    <li>RAG System Infrastructure</li>
+                    <li>Agentic AI & Agent Orchestration</li>
+                    <li>Vector Databases (Pinecone, Weaviate, Milvus)</li>
+                    <li>Prompt Engineering</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>🔄 MLOps & AI Pipelines</h3>
+                <ul>
+                    <li>MLflow (Registry & Tracking)</li>
+                    <li>Kubeflow Pipeline Orchestration</li>
+                    <li>Model Drift Detection & Monitoring</li>
+                    <li>Apache Kafka Event Streaming</li>
+                    <li>GPU Cost Optimization (FinOps)</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>🔐 DevSecOps & Compliance</h3>
+                <ul>
+                    <li>Zero Trust Architecture</li>
+                    <li>SOC2, PCI DSS, GDPR, CCPA</li>
+                    <li>Secrets Management (Vault, AWS SM)</li>
+                    <li>Vulnerability Scanning (Nessus)</li>
+                    <li>Responsible AI Governance</li>
+                </ul>
+            </div>
+            <div class="skill-card">
+                <h3>👥 Leadership & Delivery</h3>
+                <ul>
+                    <li>100+ FTE Teams Directed</li>
+                    <li>$50M+ Pre-Sales Engagements Supported</li>
+                    <li>AWS Certified Solutions Architect</li>
+                    <li>Red Hat Certified Engineer (RHCE)</li>
+                    <li>ITIL v4 Practitioner</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            <!-- Project 1: Enterprise AI Automation & SRE Transformation -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Enterprise AI Automation & SRE Transformation</h3>
+                    <p>Event-driven, AI-augmented self-healing infrastructure for one of the biggest ISPs in Africa (280M+ subscribers)</p>
+                    <div class="project-tags">
+                        <span class="tag">Ansible</span>
+                        <span class="tag">AWS Bedrock</span>
+                        <span class="tag">Azure OpenAI</span>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <ul class="project-features">
+                        <li>250+ Ansible playbooks automating 500+ mission-critical servers</li>
+                        <li>Self-healing observe → detect → remediate → report loop: MTTR -45%, MTTF +35%</li>
+                        <li>99.5% SLA compliance sustained month-over-month</li>
+                        <li>Founded & scaled a 30+ engineer AI Automation Center of Excellence</li>
+                    </ul>
+                    <span class="project-employer">Tech Mahindra · Nov 2024 – Present</span>
+                </div>
+            </div>
+
+            <!-- Project 2: MLOps-Ready Cloud Infrastructure & SRE Platform -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>MLOps-Ready Cloud Infrastructure & SRE Platform</h3>
+                    <p>Cloud-native transformation of a 1,000+ server estate for a US-HQ SaaS real estate platform</p>
+                    <div class="project-tags">
+                        <span class="tag">AWS</span>
+                        <span class="tag">Terraform</span>
+                        <span class="tag">Kubeflow</span>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <ul class="project-features">
+                        <li>1,000+ servers on AWS, 40% cost reduction through FinOps</li>
+                        <li>99.9% uptime sustained over 3 years, zero major incidents</li>
+                        <li>Terraform & Ansible IaC automating 80% of operational tasks</li>
+                        <li>EKS/Kubeflow-compatible platform, SageMaker-ready ML inference</li>
+                    </ul>
+                    <span class="project-employer">Entrata India · Oct 2019 – Nov 2024</span>
+                </div>
+            </div>
+
+            <!-- Project 3: Zero Trust DevSecOps & Incident Automation -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Zero Trust DevSecOps & Incident Automation</h3>
+                    <p>Enterprise-wide Zero Trust security architecture with automated compliance and incident response</p>
+                    <div class="project-tags">
+                        <span class="tag">Zero Trust</span>
+                        <span class="tag">Nessus</span>
+                        <span class="tag">Policy-as-Code</span>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <ul class="project-features">
+                        <li>70% reduction in security risk exposure</li>
+                        <li>SOC2, PCI DSS, GDPR & CCPA compliance — zero audit findings</li>
+                        <li>Automated patching cut the vulnerability window to under 24 hours</li>
+                        <li>Policy-as-code enforcement via Terraform & Ansible</li>
+                    </ul>
+                    <span class="project-employer">Entrata India · 2021 – 2024</span>
+                </div>
+            </div>
+
+            <!-- Project 4: Intelligent Event Correlation & Multi-Account Automation -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Intelligent Event Correlation & Automation</h3>
+                    <p>Event intelligence and self-healing automation across 7 simultaneous global enterprise accounts</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Netcool</span>
+                        <span class="tag">ITIL v4</span>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <ul class="project-features">
+                        <li>Supported a 100+ FTE delivery org across financial services, telecom & retail</li>
+                        <li>Netcool, BigFix & Tivoli TADDM event intelligence stack</li>
+                        <li>Python-driven self-healing automation cut manual intervention by 50%</li>
+                        <li>SLA-based incident management with blameless post-mortem RCA</li>
+                    </ul>
+                    <span class="project-employer">IBM · Aug 2016 – Sep 2019</span>
+                </div>
+            </div>
+
+            <!-- Project 5: Agentic AI & Multi-Agent Orchestration (R&D) -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Agentic AI & Multi-Agent Orchestration</h3>
+                    <p>Self-directed exploration of multi-agent coordination patterns for autonomous infrastructure remediation</p>
+                    <div class="project-tags">
+                        <span class="tag">CrewAI</span>
+                        <span class="tag">LangChain</span>
+                        <span class="tag">GPT-4</span>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <ul class="project-features">
+                        <li>Multi-agent coordination & tool-use protocols</li>
+                        <li>Event-driven orchestration: observe → analyze → decide → act</li>
+                        <li>Prompt engineering for multi-step reasoning & error recovery</li>
+                        <li>Prototyped against real Ansible automation workflows</li>
+                    </ul>
+                    <span class="project-employer">Independent R&D</span>
+                </div>
+            </div>
+
+            <!-- Project 6: Autonomous AIOps & Self-Healing Infrastructure (R&D) -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Autonomous AIOps & Self-Healing Infrastructure</h3>
+                    <p>Prototype AIOps agent applying LLM-driven root-cause analysis to Kubernetes workloads</p>
+                    <div class="project-tags">
+                        <span class="tag">AIOps</span>
+                        <span class="tag">Kubernetes</span>
+                        <span class="tag">LLM</span>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <ul class="project-features">
+                        <li>Automated incident detection & triage</li>
+                        <li>LLM-assisted root-cause analysis</li>
+                        <li>Self-healing remediation playbooks</li>
+                        <li>Real-time monitoring & alert correlation</li>
+                    </ul>
+                    <span class="project-employer">Independent R&D</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="achievements">
+            <div class="achievement">
+                <div class="achievement-icon">📊</div>
+                <h3>18+ Years</h3>
+                <p>Enterprise IT, SRE & AI/ML Experience</p>
+            </div>
+            <div class="achievement">
+                <div class="achievement-icon">🖥️</div>
+                <h3>1,500+</h3>
+                <p>Servers Automated & Managed</p>
+            </div>
+            <div class="achievement">
+                <div class="achievement-icon">👥</div>
+                <h3>100+</h3>
+                <p>FTE Teams Directed</p>
+            </div>
+            <div class="achievement">
+                <div class="achievement-icon">✅</div>
+                <h3>99.9%</h3>
+                <p>Peak Uptime — 3 Years, Zero Major Incidents</p>
+            </div>
+            <div class="achievement">
+                <div class="achievement-icon">💰</div>
+                <h3>$10M+</h3>
+                <p>Revenue from AI Automation & GenAI Roadmaps</p>
+            </div>
+            <div class="achievement">
+                <div class="achievement-icon">📜</div>
+                <h3>250+</h3>
+                <p>Ansible Playbooks Authored</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organizational Transformation Roadmap -->
+    <section id="roadmap">
+        <h2>Organizational Transformation Roadmap</h2>
+        <p class="section-subtitle">A practical, phase-by-phase playbook — distilled from 18+ years of living the SysAdmin → DevOps → SRE → AI Ops journey — for taking any operations team through it deliberately.</p>
+        <div class="roadmap-phases">
+            <div class="roadmap-phase">
+                <div class="phase-number"><span class="num">0</span><span class="label">Assess</span></div>
+                <div class="roadmap-body">
+                    <h3>Assess & Baseline</h3>
+                    <p class="goal">Goal: know exactly how manual, siloed, and reactive operations really are before changing anything.</p>
+                    <ul>
+                        <li>Audit current ops maturity — manual/ticket-driven vs. automated workflows</li>
+                        <li>Map data and tool silos across teams</li>
+                        <li>Shortlist high-friction, repetitive workflows as first automation candidates</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roadmap-phase">
+                <div class="phase-number"><span class="num">1</span><span class="label">Automate</span></div>
+                <div class="roadmap-body">
+                    <h3>Automate the Foundation (DevOps)</h3>
+                    <p class="goal">Goal: remove manual steps from the path to production and free Ops from being the bottleneck.</p>
+                    <ul>
+                        <li>Infrastructure-as-Code for every environment, no manual provisioning</li>
+                        <li>CI/CD pipelines as the default, only path to production</li>
+                        <li>Self-service platforms for automated provisioning & on-demand tooling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roadmap-phase">
+                <div class="phase-number"><span class="num">2</span><span class="label">Engineer</span></div>
+                <div class="roadmap-body">
+                    <h3>Engineer Reliability (SRE)</h3>
+                    <p class="goal">Goal: replace heroics with measurable, repeatable reliability.</p>
+                    <ul>
+                        <li>Define SLOs/SLIs and error budgets per service</li>
+                        <li>Stand up unified observability (metrics, logs, traces)</li>
+                        <li>Replace firefighting with runbooks and blameless postmortems</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roadmap-phase">
+                <div class="phase-number"><span class="num">3</span><span class="label">Introduce</span></div>
+                <div class="roadmap-body">
+                    <h3>Introduce Agentic AI Ops</h3>
+                    <p class="goal">Goal: prove narrow, high-confidence autonomy before expanding scope.</p>
+                    <ul>
+                        <li>Start with log correlation, anomaly detection & alert-noise reduction</li>
+                        <li>Deploy AI agents for root-cause analysis and auto-remediation of known failure patterns</li>
+                        <li>Keep humans-in-the-loop as approvers before expanding agent authority</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roadmap-phase">
+                <div class="phase-number"><span class="num">4</span><span class="label">Govern</span></div>
+                <div class="roadmap-body">
+                    <h3>Scale with Governance & Trust</h3>
+                    <p class="goal">Goal: close the gap between adoption speed and enterprise readiness.</p>
+                    <ul>
+                        <li>Guardrails, policy-as-code & private infrastructure for sensitive workloads</li>
+                        <li>Formal enterprise rollout: use-case selection → workflow design → system integration → security review</li>
+                        <li>Stand up an AI governance board and a regular review cadence</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roadmap-phase">
+                <div class="phase-number"><span class="num">5</span><span class="label">Transform</span></div>
+                <div class="roadmap-body">
+                    <h3>Organization-Wide Transformation</h3>
+                    <p class="goal">Goal: move from isolated pilots to agentic intelligence embedded across the business.</p>
+                    <ul>
+                        <li>Apply the transformation across the business, not just IT: employee productivity, customer experience, process reinvention, product innovation</li>
+                        <li>Fund and staff this as a continuous program, not a one-time project</li>
+                        <li>Re-baseline against Phase 0 regularly — maturity is a loop, not a milestone</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="podcast-credit">
+            <p>🎧 Roadmap framing informed by the <strong>Agentic AI Podcast by lowtouch.ai</strong> — including "Evolution of SysAdmin to DevOps to SRE to AI Ops Engineer," "AI-Powered Self-Service Platforms: Reducing DevOps Bottlenecks," and "How to Implement AI Agents in Your Business."</p>
+            <a href="https://open.spotify.com/show/2I6XG013NtRiPI8ac4Kebh" target="_blank">Listen to the Agentic AI Podcast →</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Let's Work Together</h2>
+        <div class="contact-content">
+            <p>Open to Solution Architect roles in DevOps/SRE/Infrastructure Automation and Generative AI/LLM Deployment — based in Pune, India, open to remote/hybrid. Let's connect and build something reliable.</p>
+            <div class="contact-links">
+                <a href="https://www.linkedin.com/in/rajiv-kumar-6a316b13/" target="_blank">LinkedIn</a>
+                <a href="mailto:rajiv.singh1986@gmail.com">Email</a>
+                <a href="https://www.credly.com/users/rajiv-kumar.b607bd5b" target="_blank">Certifications (Credly)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rajiv Kumar — Site Reliability Engineer · DevOps Architect · AI Solution Architect</p>
+    </footer>
